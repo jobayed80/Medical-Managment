@@ -1,0 +1,983 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Employee;
+
+import medical.*;
+import com.sbix.jnotify.NPosition;
+import com.sbix.jnotify.NoticeType;
+import com.sbix.jnotify.NoticeWindow;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+/**
+ *
+ * @author h
+ */
+public class Employee_Update extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Patient_Ticket
+     */
+    int Emp_ID;
+    private String gender;
+    private String status;
+    public Employee_Update() {
+        initComponents();
+        Toolkit toolkit = getToolkit();
+        Dimension size = toolkit.getScreenSize();
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+        txtExtra.requestFocus();
+       
+        
+        //un editavle text field
+        
+        txt_emp_full_name.setEditable(false);
+        txt_emp_father_name.setEditable(false);
+        txt_emp_mother_name.setEditable(false);
+        emp_bd.setEnabled(false);
+        txt_emp_status.setEditable(false);
+        txt_emp_contact1.setEditable(false);
+        txt_emp_contact2.setEditable(false);
+        txt_emp_gen.setEditable(false);
+        lbl_image.setEnabled(false);
+        txt_emp_dep.setEditable(false);
+        txt_emp_address.setEditable(false);
+        BROWSE.setVisible(false);
+    }
+    
+    //patient increase id
+    
+    
+    
+    
+    //ImagePath
+    String ImgPath = null;
+    
+    //Resize Image 
+    public ImageIcon ResizeImage(String imagePath, byte[] pic)
+    {
+        ImageIcon myImage = null;
+        if(imagePath !=null)
+        {
+            myImage = new ImageIcon(imagePath);
+        }
+        else
+        {
+            myImage = new ImageIcon(pic);
+        }
+        Image img = myImage.getImage();
+        Image img2 = img.getScaledInstance(lbl_image.getWidth(),lbl_image.getHeight(),Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(img2);
+        return image;
+        
+    }
+    
+    
+    public boolean Updated()
+    {
+//        String search = txt_employee_update_id.getText();
+//
+//        String Full = txt_employee_full_name_update.getText();
+//        String F_Name = txt_employee_father_name_update.getText();
+//        String M_Name = txt_employee_mother_name_update.getText();
+//        String sta = (String) combo_status.getSelectedItem();
+//        String Con = txt_employee_contact_update.getText();
+//        //lbl_employee_image_update.setIcon(ResizeImage(null, rs.getBytes(8)));
+//        String Dep = txt_employee_department_update.getText();
+//        String Add = txt_employee_address_update.getText();
+        
+        String search = search_id.getText();
+        String E_Name = txt_emp_full_name.getText();
+        String E_Fname = txt_emp_father_name.getText();
+        String E_Mname = txt_emp_mother_name.getText();
+        String E_contact1 = txt_emp_contact1.getText();
+        String E_contact2 = txt_emp_contact2.getText();
+        //String Age = (String) combo_emp_age.getSelectedItem();
+        //String P_Doctor_name = (String) combo_patient_doctor_name.getSelectedItem();
+        String E_address = txt_emp_address.getText();
+        String E_dep= txt_emp_dep.getText();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/medical", "root", "");
+            Statement st = (Statement) con.createStatement();
+            String query = "update employee set FullName='" + E_Name + "', FatherName='" + E_Fname + "', MotherName='" + E_Mname + "', Status='" + status + "', Contact_1='" + E_contact1 + "', Contact_2='" + E_contact2 + "',  Department='" + E_dep + "', Address='" + E_address + "' where Id='" + search + "'";
+            st.executeUpdate(query);
+            
+
+        } catch (Exception e) {
+
+        }
+        return true;
+    }
+    
+    public Connection getConnection() {
+        Connection con = null;
+        try {
+
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/medical", "root", "");
+
+            return con;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        ticket_profile = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        txt_emp_contact2 = new javax.swing.JTextField();
+        txt_emp_dep = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        emp_bd = new com.toedter.calendar.JDateChooser();
+        combo_emp_age = new javax.swing.JComboBox<>();
+        lbl_image = new javax.swing.JLabel();
+        txt_emp_contact1 = new javax.swing.JTextField();
+        txt_emp_gen = new javax.swing.JTextField();
+        txt_emp_status = new javax.swing.JTextField();
+        BROWSE = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        txt_emp_address = new javax.swing.JTextField();
+        txt_emp_full_name = new javax.swing.JTextField();
+        txtExtra = new javax.swing.JTextField();
+        txt_emp_father_name = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        search_id = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_emp_mother_name = new javax.swing.JTextField();
+        Error_Id = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255), 3));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ticket_profile.setBackground(new java.awt.Color(46, 64, 83));
+        ticket_profile.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                ticket_profileComponentShown(evt);
+            }
+        });
+        ticket_profile.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(93, 109, 126));
+
+        jLabel1.setFont(new java.awt.Font("Elephant", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Employye Profile Update");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(657, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        ticket_profile.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 40));
+
+        jPanel4.setBackground(new java.awt.Color(46, 64, 83));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBackground(new java.awt.Color(46, 64, 83));
+        jButton2.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Reset");
+        jButton2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 200, 60));
+
+        jButton1.setBackground(new java.awt.Color(46, 64, 83));
+        jButton1.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Close");
+        jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 200, 60));
+
+        jButton3.setBackground(new java.awt.Color(46, 64, 83));
+        jButton3.setFont(new java.awt.Font("Perpetua Titling MT", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Update");
+        jButton3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 60));
+
+        ticket_profile.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, 240, 450));
+
+        jPanel6.setBackground(new java.awt.Color(46, 64, 83));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_emp_contact2.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_contact2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_contact2.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_contact2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_contact2.setText("Contact 2");
+        txt_emp_contact2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_contact2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_contact2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_contact2FocusLost(evt);
+            }
+        });
+        jPanel6.add(txt_emp_contact2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 200, 36));
+
+        txt_emp_dep.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_dep.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_dep.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_dep.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_dep.setText("Department");
+        txt_emp_dep.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_dep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_depFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_depFocusLost(evt);
+            }
+        });
+        jPanel6.add(txt_emp_dep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 200, 36));
+
+        jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Birthday Date  :");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 130, -1));
+
+        emp_bd.setBackground(new java.awt.Color(46, 64, 83));
+        emp_bd.setForeground(new java.awt.Color(255, 255, 255));
+        emp_bd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        emp_bd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emp_bdMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                emp_bdMouseEntered(evt);
+            }
+        });
+        jPanel6.add(emp_bd, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 200, 40));
+
+        combo_emp_age.setBackground(new java.awt.Color(46, 64, 83));
+        combo_emp_age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        combo_emp_age.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "                   Age", "10 Day", "1 Month", "2 Month", "3 Month", "4 Month", "5 Month", "6 Month", "7 Month", "8 Month", "9 Month", "10 Month", "01 Year", "02 Year", "03Year", "04 Year", "05 Year", "06 Year", "07 Year", "08 Year", "09 Year", "10 Year", "12 Year", "13 Year", "14 Year", "15 Year", "16 Year", "17 Year", "18 Year", "19 Year", "20 Year", "21 Year", "22 Year", "23 Year", "24 Year", "25 Year", "26 Year", "27 Year", "28 Year", "29 Year", "30 Year", "31 Year", "32 Year", "33 Year", "34 Year", "35 Year", "36 Year", "37 Year", "38 Year", "39 Year", "40 Year", "41 Year", "42 Year", "43 Year", "44 Year", "45 Year", "46 Year", "47 Year", "48 Year", "49 Year", "50 Year", "51 Year", "52 Year", "53 Year", "54 Year", "55 Year", "56 Year", "57 Year", "58 Year", "59 Year", "60 Year", "61 Year", "62 Year", "63 Year", "64 Year", "65 Year", "66 Year", "67 Year", "68 Year", "69 Year", "70 Year", "71 Year", "72 Year", "73 Year", "74 Year", "75 Year", "76 Year", "77 Year", "78 Year", "79 Year", "80 Year" }));
+        combo_emp_age.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_emp_ageActionPerformed(evt);
+            }
+        });
+        jPanel6.add(combo_emp_age, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, 200, 40));
+
+        lbl_image.setBackground(new java.awt.Color(0, 51, 51));
+        lbl_image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/medical/insert.png"))); // NOI18N
+        lbl_image.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.TRAILING, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        lbl_image.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_imageMouseClicked(evt);
+            }
+        });
+        jPanel6.add(lbl_image, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 220, 230));
+
+        txt_emp_contact1.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_contact1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_contact1.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_contact1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_contact1.setText("Contact 1");
+        txt_emp_contact1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_contact1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_contact1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_contact1FocusLost(evt);
+            }
+        });
+        jPanel6.add(txt_emp_contact1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 200, 36));
+
+        txt_emp_gen.setText("jTextField1");
+        jPanel6.add(txt_emp_gen, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 319, 200, 30));
+
+        txt_emp_status.setText("jTextField2");
+        jPanel6.add(txt_emp_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 230, 30));
+
+        BROWSE.setText("Browse");
+        BROWSE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BROWSEMouseClicked(evt);
+            }
+        });
+        jPanel6.add(BROWSE, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 60, 30));
+
+        ticket_profile.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 670, 450));
+
+        jPanel7.setBackground(new java.awt.Color(46, 64, 83));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        txt_emp_address.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_address.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_address.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_address.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_address.setText("Address");
+        txt_emp_address.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_address.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_addressFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_addressFocusLost(evt);
+            }
+        });
+
+        txt_emp_full_name.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_full_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_full_name.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_full_name.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_full_name.setText("Full Name");
+        txt_emp_full_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_full_name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_full_nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_full_nameFocusLost(evt);
+            }
+        });
+        txt_emp_full_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_emp_full_nameKeyReleased(evt);
+            }
+        });
+
+        txtExtra.setBackground(new java.awt.Color(46, 64, 83));
+        txtExtra.setBorder(null);
+
+        txt_emp_father_name.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_father_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_father_name.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_father_name.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_father_name.setText("Father Name");
+        txt_emp_father_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_father_name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_father_nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_father_nameFocusLost(evt);
+            }
+        });
+        txt_emp_father_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_emp_father_nameKeyReleased(evt);
+            }
+        });
+
+        jPanel5.setBackground(new java.awt.Color(46, 64, 88));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Employee/search icon.png"))); // NOI18N
+        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 12, -1, 40));
+
+        search_id.setBackground(new java.awt.Color(46, 64, 83));
+        search_id.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        search_id.setForeground(new java.awt.Color(204, 204, 255));
+        search_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                search_idKeyReleased(evt);
+            }
+        });
+        jPanel5.add(search_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 130, 30));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Search Id");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 26, -1, -1));
+
+        txt_emp_mother_name.setBackground(new java.awt.Color(46, 64, 83));
+        txt_emp_mother_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_emp_mother_name.setForeground(new java.awt.Color(255, 255, 255));
+        txt_emp_mother_name.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_emp_mother_name.setText("Mother Name");
+        txt_emp_mother_name.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txt_emp_mother_name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emp_mother_nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emp_mother_nameFocusLost(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(txt_emp_mother_name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(txt_emp_address, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(txt_emp_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(txt_emp_father_name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(Error_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap(237, Short.MAX_VALUE)
+                    .addComponent(txtExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 728, Short.MAX_VALUE)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_emp_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_emp_father_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Error_Id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_emp_mother_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_emp_address, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(40, 96, Short.MAX_VALUE)
+                    .addComponent(txtExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 47, Short.MAX_VALUE)))
+        );
+
+        ticket_profile.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 987, 160));
+
+        jPanel1.add(ticket_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 986, 680));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 684));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void ticket_profileComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ticket_profileComponentShown
+
+    }//GEN-LAST:event_ticket_profileComponentShown
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+        new Employee_Update().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+               
+        String search = search_id.getText();
+ 
+        try {
+            
+            if(ImgPath==null)
+            {
+                Updated();
+                JOptionPane.showMessageDialog(null, "Updated Your Data");
+            }
+            else
+            {
+                Updated();
+                
+                String query = null;
+                PreparedStatement ps = null;
+                Connection con = getConnection();
+                InputStream img = new FileInputStream(new File(ImgPath));
+                //query="update don set Name=?,Occupation=?,Contact=?,Address=?,LastDonation=? Image=? where Id='"+search+"'";
+                query = "update employee set Image=? where Id='" + search + "'";
+
+                ps = con.prepareStatement(query);
+                ps.setBlob(1, img);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Updated Your Data");
+            
+            }
+                
+            
+            
+            
+            
+
+           
+
+              
+            
+            
+        }catch (Exception e) {
+                JOptionPane.showMessageDialog(null,e);
+            }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txt_emp_contact2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_contact2FocusGained
+        if (txt_emp_contact2.getText().equals("Contact 2")) {
+            txt_emp_contact2.setText("");
+            txt_emp_contact2.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_contact2FocusGained
+
+    private void txt_emp_contact2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_contact2FocusLost
+        if (txt_emp_contact2.getText().equals("")) {
+            txt_emp_contact2.setText("Contact 2");
+            txt_emp_contact2.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_contact2FocusLost
+
+    private void txt_emp_depFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_depFocusGained
+        if (txt_emp_dep.getText().equals("Department")) {
+            txt_emp_dep.setText("");
+            txt_emp_dep.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_depFocusGained
+
+    private void txt_emp_depFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_depFocusLost
+        if (txt_emp_dep.getText().equals("")) {
+            txt_emp_dep.setText("Department");
+            txt_emp_dep.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_depFocusLost
+
+    private void emp_bdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp_bdMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emp_bdMouseClicked
+
+    private void emp_bdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp_bdMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emp_bdMouseEntered
+
+    private void combo_emp_ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_emp_ageActionPerformed
+
+        String age = (String) combo_emp_age.getSelectedItem();
+        if("                   Age".equals(age))
+        {
+            //JOptionPane.showMessageDialog(null,"Sorry! This is not selecte!");
+            JOptionPane.showMessageDialog(null, "Sorry! This is not select!",
+                "Alert", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_combo_emp_ageActionPerformed
+
+    private void lbl_imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_imageMouseClicked
+
+        try {
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+        } catch (Exception e) {
+        }
+        JFileChooser file = new JFileChooser();
+        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images","jpg","png");
+        file.addChoosableFileFilter(filter);
+        int result = file.showSaveDialog(null);
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+            File selectedFile = file.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            lbl_image.setIcon(ResizeImage(path,null));
+            ImgPath=path;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Sorry! No File Selected");
+        }
+    }//GEN-LAST:event_lbl_imageMouseClicked
+
+    private void txt_emp_contact1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_contact1FocusGained
+        if (txt_emp_contact1.getText().equals("Contact 1")) {
+            txt_emp_contact1.setText("");
+            txt_emp_contact1.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_contact1FocusGained
+
+    private void txt_emp_contact1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_contact1FocusLost
+      if (txt_emp_contact1.getText().equals("")) {
+            txt_emp_contact1.setText("Contact 1");
+            txt_emp_contact1.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_contact1FocusLost
+
+    private void txt_emp_addressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_addressFocusGained
+        if (txt_emp_address.getText().equals("Address")) {
+            txt_emp_address.setText("");
+            txt_emp_address.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_addressFocusGained
+
+    private void txt_emp_addressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_addressFocusLost
+        if (txt_emp_address.getText().equals("")) {
+            txt_emp_address.setText("Address");
+            txt_emp_address.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_addressFocusLost
+
+    private void txt_emp_full_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_full_nameFocusGained
+        if (txt_emp_full_name.getText().equals("Full Name")) {
+            txt_emp_full_name.setText("");
+            txt_emp_full_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_full_nameFocusGained
+
+    private void txt_emp_full_nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_full_nameFocusLost
+        if (txt_emp_full_name.getText().equals("")) {
+            txt_emp_full_name.setText("Full Name");
+            txt_emp_full_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_full_nameFocusLost
+
+    private void txt_emp_full_nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emp_full_nameKeyReleased
+
+        //txtSubject.setText(txt_patient_full_name.getText());
+    }//GEN-LAST:event_txt_emp_full_nameKeyReleased
+
+    private void txt_emp_father_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_father_nameFocusGained
+        if (txt_emp_father_name.getText().equals("Father Name")) {
+            txt_emp_father_name.setText("");
+            txt_emp_father_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_father_nameFocusGained
+
+    private void txt_emp_father_nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_father_nameFocusLost
+        if (txt_emp_father_name.getText().equals("")) {
+            txt_emp_father_name.setText("Father Name");
+            txt_emp_father_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_father_nameFocusLost
+
+    private void txt_emp_father_nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emp_father_nameKeyReleased
+
+    }//GEN-LAST:event_txt_emp_father_nameKeyReleased
+
+    private void txt_emp_mother_nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_mother_nameFocusGained
+        if (txt_emp_mother_name.getText().equals("Mother Name")) {
+            txt_emp_mother_name.setText("");
+            txt_emp_mother_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_mother_nameFocusGained
+
+    private void txt_emp_mother_nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emp_mother_nameFocusLost
+        if (txt_emp_mother_name.getText().equals("")) {
+            txt_emp_mother_name.setText("Mother Name");
+            txt_emp_mother_name.setForeground(new Color(255,255,255));
+
+        }
+    }//GEN-LAST:event_txt_emp_mother_nameFocusLost
+
+    private void search_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_idKeyReleased
+       String search = search_id.getText();
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/medical", "root", "");
+            Statement st = (Statement)con.createStatement();
+            String query = "select *from employee where Id='"+search+"'";
+            ResultSet rs = st.executeQuery(query);
+            
+            if(rs.next())
+            {
+//                String s1 = rs.getString(1); //id 
+//                String s2 = rs.getString(2); //Full NAme
+//                String s3 = rs.getString(3); //F Name
+//                String s4 = rs.getString(4); //Mother Name
+//                Date s5 = rs.getDate(5); // Birthday
+//                String s6 = rs.getString(6); //status              
+//                String s7 = rs.getString(7); //contact
+//                String s9 = rs.getString(9); // Department
+//                String s10 = rs.getString(10);// address
+//                String s12 = rs.getString(11); //gendwer
+//                //String s11 = rs.getString(10);
+                
+               
+                String s2 = rs.getString("FullName"); //Full NAme
+                txt_emp_full_name.setText(s2);
+                
+                String s3 = rs.getString("FatherName"); //F Name
+                txt_emp_father_name.setText(s3);
+                
+                String s4 = rs.getString("MotherName"); //Mother Name
+                txt_emp_mother_name.setText(s4);
+                
+                Date s5 = rs.getDate("Birthday"); // Birthday
+                emp_bd.setDate(s5);
+                 
+                String s6 = rs.getString("Status"); //status
+                txt_emp_status.setText(s6);
+                 
+                String s7 = rs.getString("Contact_1"); //contact
+                txt_emp_contact1.setText(s7);
+                
+                String s8 = rs.getString("Contact_2"); //contact
+                txt_emp_contact2.setText(s8);
+                
+                lbl_image.setIcon(ResizeImage(null, rs.getBytes(8)));
+                                
+                String s10 = rs.getString("Department"); // Department
+                txt_emp_dep.setText(s10);
+                
+                String s11 = rs.getString("Address");// address
+                txt_emp_address.setText(s10);
+                
+                String s12 = rs.getString("Gender"); //gendwer
+                txt_emp_gen.setText(s12);
+                //String s11 = rs.getString(10);
+               
+                
+                
+                
+                
+               
+               
+                
+                
+                
+                Error_Id.setText("*Id match");
+                Error_Id.setForeground(Color.GREEN);
+               
+                txt_emp_full_name.setEditable(true);
+                txt_emp_father_name.setEditable(true);
+                txt_emp_mother_name.setEditable(true);
+                emp_bd.setEnabled(false);
+                txt_emp_status.setEditable(true);
+                txt_emp_contact1.setEditable(true);
+                txt_emp_contact2.setEditable(true);
+                txt_emp_gen.setEditable(false);
+                lbl_image.setEnabled(true);
+                txt_emp_dep.setEditable(true);
+                txt_emp_address.setEditable(true);
+                BROWSE.setVisible(true);
+               
+//               txtId.setEditable(false);
+//               txtFname.setEditable(true);
+//               txtYear.setEditable(false);
+//               txtMonth.setEditable(false);
+//               txtDate.setEditable(false);
+//               txtOcuu.setEditable(true);
+//               txtContact.setEditable(true);
+//               txtBlood.setEditable(false);
+//               txtAddress.setEditable(true);
+//               txtLastDate.setEditable(true);
+//               
+//               Browse.setVisible(true);
+//               ErrorId.setText(null);
+               
+            }
+            else
+            {
+               
+                Error_Id.setVisible(true);
+                Error_Id.setText("*Sorry! Id doesn't match");
+            }
+          
+           con.close();
+            
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
+        }
+        
+        
+        
+        
+        
+        
+ 
+    }//GEN-LAST:event_search_idKeyReleased
+
+    private void BROWSEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BROWSEMouseClicked
+       
+        try {
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+        } catch (Exception e) {
+        }
+        JFileChooser file = new JFileChooser();
+        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images", "jpg", "png");
+        file.addChoosableFileFilter(filter);
+        int result = file.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = file.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            lbl_image.setIcon(ResizeImage(path, null));
+            ImgPath = path;
+        } else {
+            JOptionPane.showMessageDialog(null, "Sorry! No File Selected");
+        }
+    }//GEN-LAST:event_BROWSEMouseClicked
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Employee_Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Employee_Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Employee_Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Employee_Update.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Employee_Update().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BROWSE;
+    private javax.swing.JLabel Error_Id;
+    private javax.swing.JComboBox<String> combo_emp_age;
+    private com.toedter.calendar.JDateChooser emp_bd;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbl_image;
+    private javax.swing.JTextField search_id;
+    private javax.swing.JPanel ticket_profile;
+    private javax.swing.JTextField txtExtra;
+    private javax.swing.JTextField txt_emp_address;
+    private javax.swing.JTextField txt_emp_contact1;
+    private javax.swing.JTextField txt_emp_contact2;
+    private javax.swing.JTextField txt_emp_dep;
+    private javax.swing.JTextField txt_emp_father_name;
+    private javax.swing.JTextField txt_emp_full_name;
+    private javax.swing.JTextField txt_emp_gen;
+    private javax.swing.JTextField txt_emp_mother_name;
+    private javax.swing.JTextField txt_emp_status;
+    // End of variables declaration//GEN-END:variables
+}
